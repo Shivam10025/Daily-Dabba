@@ -9,7 +9,7 @@ const MAX_DIST_M   = 500;
 
 // 🔧 REPLACE THIS with your Google Apps Script Web App URL
 // After deploying your Apps Script, paste the URL below:
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbwzk6FJkyASaWGIdk-R7HUe_kRZs31a5Nits77RqoG9Tl6AnyLLuj3OROr0lmNpXvpE/exec";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycby0dxQ616TzzEIsdoqQp0eKJkGBTYvLb1kq2Zf1wmRjKa0rBIX4_RjBdkhZgm72p4Hz/exec";
 
 // ── ON LOAD ──────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
