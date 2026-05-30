@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daily Dabba — Ghar Jaisa Khana</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <img src="logo.png" alt="Daily Dabba" class="nav-logo-img"/>
+      <div class="nav-links">
+        <a href="#menu">Menu</a>
+        <a href="#order">Order</a>
+        <a href="#contact">Contact</a>
+        <a href="#order" class="nav-cta-btn">Order Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-blob blob1"></div>
+    <div class="hero-blob blob2"></div>
+    <div class="hero-left">
+      <div class="hero-tag-pill">🌿 Fresh · Homemade · Daily</div>
+      <h1 class="hero-title">Ghar Jaisa<br/><span class="orange">Khana,</span><br/>Aapke Liye.</h1>
+      <p class="hero-sub">Wholesome home-cooked meals prepared fresh every morning and delivered warm to your doorstep.</p>
+      <div class="hero-btns">
+        <a href="#order" class="btn-primary">🛒 Order Now</a>
+        <a href="#menu" class="btn-ghost">See Today's Menu ↓</a>
+      </div>
+      <div class="hero-pills">
+        <span>🌿 No Preservatives</span>
+        <span>👩‍🍳 Home Cooked</span>
+        <span>⚡ Same Day Delivery</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="logo-glow-ring">
+        <img src="logo.png" alt="Daily Dabba Logo" class="hero-logo-big"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- TODAY'S MENU -->
+  <section class="menu-section" id="menu">
+    <div class="section-head">
+      <span class="chip">🍽️ Fresh Today</span>
+      <h2>Today's Menu</h2>
+      <p>Made fresh every morning. Limited quantities — order early!</p>
+    </div>
+    <div class="menu-grid" id="menu-grid">
+      <div class="menu-skeleton"></div>
+      <div class="menu-skeleton"></div>
+      <div class="menu-skeleton"></div>
+      <div class="menu-skeleton"></div>
+    </div>
+  </section>
+
+  <!-- ORDER FORM -->
+  <section class="order-section" id="order">
+    <div class="order-bg-blob"></div>
+    <div class="section-head light">
+      <span class="chip chip-white">📝 Place Order</span>
+      <h2>Order Your Dabba</h2>
+      <p>Fill in your details — we'll have it ready and warm for you.</p>
+    </div>
+
+    <div class="order-card">
+
+      <!-- Location Check -->
+      <div class="loc-strip" id="loc-strip">
+        <div class="loc-icon-wrap">📍</div>
+        <div class="loc-text">
+          <strong>Check Delivery to Your Area</strong>
+          <small id="loc-msg">We deliver within 500 metres of our kitchen.</small>
+        </div>
+        <button class="btn-loc" id="loc-btn" onclick="checkLocation()">Check Now</button>
+      </div>
+      <div id="delivery-banner" class="delivery-banner hidden"></div>
+
+      <!-- Form -->
+      <form id="order-form" onsubmit="submitOrder(event)" novalidate>
+
+        <div class="form-row two">
+          <div class="fgroup">
+            <label for="f-name">Your Name *</label>
+            <input type="text" id="f-name" placeholder="e.g. Priya Sharma" required/>
+          </div>
+          <div class="fgroup">
+            <label for="f-mobile">Mobile Number *</label>
+            <input type="tel" id="f-mobile" placeholder="10-digit number" pattern="[6-9][0-9]{9}" maxlength="10" required/>
+          </div>
+        </div>
+
+        <div class="fgroup">
+          <label>Delivery Type *</label>
+          <div class="radio-row">
+            <label class="radio-card" id="rc-delivery">
+              <input type="radio" name="delivery" value="Home Delivery" required/>
+              <span class="rc-icon">🛵</span>
+              <span class="rc-label">Home Delivery</span>
+            </label>
+            <label class="radio-card" id="rc-pickup">
+              <input type="radio" name="delivery" value="Self Pickup"/>
+              <span class="rc-icon">🚶</span>
+              <span class="rc-label">Self Pickup</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="fgroup" id="address-group">
+          <label for="f-address">Delivery Address *</label>
+          <textarea id="f-address" rows="2" placeholder="Flat/House no., Street, Landmark…"></textarea>
+        </div>
+
+        <div class="fgroup">
+          <label for="f-order">Order Details *</label>
+          <textarea id="f-order" rows="3" placeholder="e.g. 2x Rajma Rice, 1x Dal Tadka & Roti…" required></textarea>
+        </div>
+
+        <div class="fgroup">
+          <label for="f-special">Special Instructions</label>
+          <textarea id="f-special" rows="2" placeholder="Less spicy, no onion, extra roti…"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submit-btn">
+          <span id="submit-text">🚀 Place My Order</span>
+        </button>
+        <div id="form-msg" class="form-msg hidden"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="section-head">
+      <span class="chip">📞 Reach Us</span>
+      <h2>Get in Touch</h2>
+      <p>Questions? We're just a tap away.</p>
+    </div>
+    <div class="contact-grid">
+      <a href="https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%20want%20to%20order%20from%20Daily%20Dabba!" class="c-card whatsapp" target="_blank">
+        <div class="c-emoji">💬</div>
+        <div class="c-label">WhatsApp</div>
+        <div class="c-sub">Chat with us</div>
+      </a>
+      <a href="tel:+91XXXXXXXXXX" class="c-card call">
+        <div class="c-emoji">📞</div>
+        <div class="c-label">Call Us</div>
+        <div class="c-sub">Direct call</div>
+      </a>
+      <a href="https://www.instagram.com/YOUR_HANDLE" class="c-card insta" target="_blank">
+        <div class="c-emoji">📸</div>
+        <div class="c-label">Instagram</div>
+        <div class="c-sub">See our food</div>
+      </a>
+      <a href="https://www.google.com/maps/search/?api=1&query=28.501254,77.184578" class="c-card maps" target="_blank">
+        <div class="c-emoji">🗺️</div>
+        <div class="c-label">Find Us</div>
+        <div class="c-sub">Get directions</div>
+      </a>
+    </div>
+    <p class="contact-hours">⏰ Orders accepted <strong>8 AM – 12 PM</strong> · Delivery by <strong>1 PM</strong></p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <img src="logo.png" alt="Daily Dabba" class="footer-logo"/>
+    <p>Made with ❤️ for our neighbourhood.</p>
+    <p class="footer-tiny">© 2025 Daily Dabba. All rights reserved.</p>
+  </footer>
+
+  <!-- Hidden fields -->
+  <input type="hidden" id="h-lat"/>
+  <input type="hidden" id="h-lng"/>
+  <input type="hidden" id="h-dist"/>
+
+  <script src="script.js"></script>
+</body>
+</html>
