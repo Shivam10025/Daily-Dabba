@@ -9,7 +9,7 @@ const MAX_DIST_M   = 500;
 
 // 🔧 REPLACE THIS with your Google Apps Script Web App URL
 // After deploying your Apps Script, paste the URL below:
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbxHi8mrEtlmw6QAgiZdEb1MIQ_wf4JGBz4PbPSPzmbpSldILw0md_khKL18ksjbOXNT/exec";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwP2ivLKjdYKVFpemywN8yecpNY5FSspo03vgeS7mxWYl_kXXc8tAxxU07TZy_LCmLb/exec";
 
 // ── ON LOAD ──────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
@@ -116,16 +116,23 @@ function checkLocation() {
       document.getElementById("h-lng").value  = uLng.toFixed(6);
       document.getElementById("h-dist").value = distM;
 
+      // 🗺️ Generate Google Maps navigation URL (Kitchen → Customer)
+      const mapsUrl = `https://www.google.com/maps/dir/${KITCHEN_LAT},${KITCHEN_LNG}/${uLat.toFixed(6)},${uLng.toFixed(6)}`;
+      document.getElementById("h-maps").value = mapsUrl;
+
       banner.classList.remove("hidden", "available", "unavailable");
+
+      // 🗺️ Maps link for delivery person
+      const mapsLinkHTML = ` <a href="${mapsUrl}" target="_blank" class="maps-inline-btn">🗺️ Navigate</a>`;
 
       if (dist <= MAX_DIST_M) {
         banner.classList.add("available");
-        banner.textContent = `✅ Delivery Available! You're ${distM}m from our kitchen.`;
-        msg.textContent    = `${distM} metres from kitchen — within delivery zone.`;
+        banner.innerHTML = `✅ Delivery Available! You're ${distM}m away.${mapsLinkHTML}`;
+        msg.textContent  = `${distM} metres from kitchen — within delivery zone.`;
       } else {
         banner.classList.add("unavailable");
-        banner.textContent = `😔 Sorry, Delivery Not Available. You're ${distM}m away (limit: ${MAX_DIST_M}m). Use Self Pickup!`;
-        msg.textContent    = `${distM} metres from kitchen — outside delivery zone.`;
+        banner.innerHTML = `😔 Outside delivery zone (${distM}m away). Use Self Pickup!${mapsLinkHTML}`;
+        msg.textContent  = `${distM} metres from kitchen — outside delivery zone.`;
         // Auto-select Self Pickup
         const pickup = document.querySelector('input[name="delivery"][value="Self Pickup"]');
         if (pickup) { pickup.checked = true; pickup.dispatchEvent(new Event("change")); }
@@ -187,6 +194,8 @@ async function submitOrder(e) {
   btn.disabled  = true;
   txt.textContent = "⏳ Placing order…";
 
+  const mapsUrl  = document.getElementById("h-maps").value;
+
   const payload = {
     timestamp:    new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
     name,
@@ -196,6 +205,7 @@ async function submitOrder(e) {
     latitude:     lat || "Not shared",
     longitude:    lng || "Not shared",
     distanceFromKitchen: dist ? `${dist} m` : "Not checked",
+    googleMapsUrl: mapsUrl || "Not shared",
     orderDetails: orderDet,
     specialInstructions: special || "—"
   };
